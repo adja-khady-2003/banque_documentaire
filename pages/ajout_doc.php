@@ -12,8 +12,8 @@ if (isset($_POST['submit'])) {
 
 
     // Query for data insertion
-    $query = mysqli_query($conn, "insert into documents (titre, auteurs, resume, mots_cles, theme) 
-    value('$titre', '$auteur', '$resume', '$mots_cles','$theme' )");
+    $query = mysqli_query($conn, "insert into documents (theme,titre, auteurs, resume, mots_cles) 
+    value('$theme','$titre', '$auteur', '$resume', '$mots_cles' )");
     if ($query) {
         echo "<script>alert('You have successfully inserted the data');</script>";
         echo "<script type='text/javascript'> document.location ='liste_doc.php'; </script>";
