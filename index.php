@@ -40,7 +40,7 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
       <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">PUBLICATIONS</a>
       <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small">A PROPOS</a>
       <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
-      <a href="conn_admin.php" class="w3-bar-item w3-button w3-padding-large w3-right">SE CONNECTER</a>
+      <a href="login.php" class="w3-bar-item w3-button w3-padding-large w3-right">SE CONNECTER</a>
       <!-- <a href="conn_admin.php" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i>Se connecter</a> -->
     </div>
   </div>
