@@ -57,27 +57,34 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
   <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
     <!-- Automatic Slideshow Images -->
-    <!-- <div class="mySlides w3-display-container w3-center">
-      <img src="/w3images/la.jpg" style="width:100%">
+    <div class="mySlides w3-display-container w3-center w3-round">
+      <img src="./images/film-1668918_640.jpg" style="width:100%">
       <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
         <h3>Los Angeles</h3>
         <p><b>We had the best time playing at Venice Beach!</b></p>
       </div>
     </div>
     <div class="mySlides w3-display-container w3-center">
-      <img src="/w3images/ny.jpg" style="width:100%">
+      <img src="./images/camera-1130731_640.jpg" style="width:70%">
       <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
         <h3>New York</h3>
         <p><b>The atmosphere in New York is lorem ipsum.</b></p>
       </div>
     </div>
     <div class="mySlides w3-display-container w3-center">
-      <img src="/w3images/chicago.jpg" style="width:100%">
+      <img src="./images/a-book-3088775_640.jpg" style="width:70%">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <h3>New York</h3>
+        <p><b>The atmosphere in New York is lorem ipsum.</b></p>
+      </div>
+    </div>
+    <div class="mySlides w3-display-container w3-center">
+      <img src="./images/books-2596809_1280.jpg" style="width:70%">
       <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
         <h3>Chicago</h3>
         <p><b>Thank you, Chicago - A night we won't forget.</b></p>
       </div>
-    </div> -->
+    </div>
 
     <!-- The Band Section -->
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
@@ -213,7 +220,7 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
         myIndex = 1
       }
       x[myIndex - 1].style.display = "block";
-      setTimeout(carousel, 4000);
+      setTimeout(carousel, 2000);
     }
 
     // Used to toggle the menu on small screens when clicking on the menu button
