@@ -1,6 +1,6 @@
 <?php
 //Databse Connection file
-include('../connexion/connexion.php');
+include('../../connexion/connexion.php');
 if (isset($_POST['submit'])) {
 
     // upload file
