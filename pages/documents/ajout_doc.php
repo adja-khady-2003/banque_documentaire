@@ -188,7 +188,7 @@ $query_part_theme = mysqli_query($conn, $sql_part_theme) or die(mysqli_error($co
             <div>
                 <label>Theme :</label>
                 <select name='theme' required> ";
-            echo "<option>Selectionner un theme</option>";
+            echo "<option>--- Selectionner un theme ---</option>";
         while ($part = mysqli_fetch_array($query_part_theme)) {
             //tant qu'on extrait des lignes sous forme de table  executif
             extract($part);
