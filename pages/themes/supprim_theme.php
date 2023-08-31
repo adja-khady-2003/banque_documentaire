@@ -5,7 +5,7 @@ include('../../connexion/connexion.php');
 if(isset($_GET['delid']))
 {
 $rid=intval($_GET['delid']);
-$sql=mysqli_query($conn,"delete from nom_theme where ID=$rid");
+$sql=mysqli_query($conn,"delete from theme where ID=$rid");
 echo "<script>alert('Data deleted');</script>"; 
 echo "<script>document.location ='liste_theme.php'</script>";     
 } 

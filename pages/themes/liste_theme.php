@@ -54,4 +54,4 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
              </tr>";
         }
         ?>
-    </table>
+    </table>    
