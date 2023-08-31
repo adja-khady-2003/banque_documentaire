@@ -51,6 +51,11 @@ if (isset($_POST['submit'])) {
     }
 }
 
+//liste theme
+$sql_part_theme = "select * from theme";
+//execution
+$query_part_theme = mysqli_query($conn, $sql_part_theme) or die(mysqli_error($conn));
+
 ?>
 
 <html lang="en">
@@ -101,7 +106,7 @@ if (isset($_POST['submit'])) {
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        
+
 
         textarea {
             height: 200px;
@@ -177,16 +182,25 @@ if (isset($_POST['submit'])) {
 <body>
     <form method="POST" enctype="multipart/form-data">
 
-        <div>
-            <label>Theme :</label>
-            <select name="theme" required>
-            <option value="Developpement Web">Developpement Web</option>
-            <option value="Politique">Politique</option>
-            <option value="Science">Science</option>
-            <option value="Litterature">Litterature</option>
-            <option value="Philosophie">Philosophie</option>
-           </select>
-        </div>
+        <?php
+
+        echo "
+            
+            <div>
+                <label>Theme :</label>
+                <select name='theme' required> ";
+
+        while ($part = mysqli_fetch_array($query_part_theme)) {
+            //tant qu'on extrait des lignes sous forme de table  executif
+            extract($part);
+            echo "<option value='$nom_theme'>$nom_theme</option>";
+        }
+            echo "</select>
+                 </div>";
+
+        ?>
+
+
         <div>
             <label>Titre :</label>
             <input type="text" name="titre">
