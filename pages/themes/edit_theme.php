@@ -141,7 +141,7 @@ if (isset($_POST['submit'])) {
                 ?>
                  <div>
                                 <label> Theme :</label>
-                                <input type="text" <?php echo $row['nom_theme']; ?> required="true">
+                                <input type="text" name="nom_theme" <?php echo $row['nom_theme']; ?> required="true">
 
                         </div>               
 
