@@ -1,6 +1,6 @@
 <?php
 //database connection  file
-include('../connexion/connexion.php');
+include('../../connexion/connexion.php');
 //Code for deletion
 if(isset($_GET['delid']))
 {

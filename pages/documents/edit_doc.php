@@ -1,6 +1,6 @@
 <?php
 //Database Connection
-include('../connexion/connexion.php');
+include('../../connexion/connexion.php');
 if (isset($_POST['submit'])) {
 
         // upload file
@@ -163,7 +163,7 @@ if (isset($_POST['submit'])) {
         <form method="POST" enctype="multipart/form-data">
                 <?php
                 //appel du fichier de connexion
-                require_once('../connexion/connexion.php');
+                require_once('../../connexion/connexion.php');
                 $eid = $_GET['editid'];
                 $ret = mysqli_query($conn, "select * from documents where ID='$eid'");
                 while ($row = mysqli_fetch_array($ret)) {

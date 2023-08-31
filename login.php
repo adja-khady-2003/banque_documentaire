@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($username === $valid_admin_username && $password === $valid_admin_password) {
         session_start();
         $_SESSION['admin_username'] = $username;
-        header("Location: ./pages/liste_doc.php"); // Redirige vers le tableau de bord de l'administrateur
+        header("Location: ./pages/accueil.php"); // Redirige vers le tableau de bord de l'administrateur
     } else {
         echo "Nom d'utilisateur ou mot de passe incorrect pour l'administrateur.";
     }
