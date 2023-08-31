@@ -125,12 +125,14 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
             echo "
                 <div class='w3-third w3-margin-bottom'>
                   <div class='w3-container w3-white'>
-                    <p><b>Thème : $theme</b></p>
+                    <p><b>Thème : $nom_theme</b></p>
                     <p><b>Titre : $titre</b></p>
                     <p><b>Auteur(s) : $auteurs</b></p>
                     <p class='w3-opacity'>Sun 29 Nov 2016 (A renseigner aussi)</p>
                     <p>$resume.</p>
-                    <button class='w3-button w3-black w3-margin-bottom'>Télécharger</button>
+                    <button class='w3-button w3-black w3-margin-bottom'>
+                    <a class='w3-button' href=\"./download.php?path=./files/$fichier\">Téléchager</a>
+                    </button>
                   </div>
               </div>
                   ";
@@ -201,7 +203,7 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
     <i class="fa fa-pinterest-p w3-hover-opacity"></i>
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i>
-    <p class="w3-medium">Copyright / Adja Khady Ndiaye</p>
+    <p class="w3-medium">Copyright / Adja Khady Poulméra Ndiaye</p>
   </footer>
 
   <script>

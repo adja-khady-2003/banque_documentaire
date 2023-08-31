@@ -2,18 +2,47 @@
 //Databse Connection file
 include('../connexion/connexion.php');
 if (isset($_POST['submit'])) {
+
+    // upload file
+    if (isset($_FILES['files'])) {
+        $errors = array();
+        $file_name = $_FILES['files']['name'];
+        $file_size = $_FILES['files']['size'];
+        $file_tmp = $_FILES['files']['tmp_name'];
+        $file_type = $_FILES['files']['type'];
+        $file_ext = strtolower(end(explode('.', $_FILES['files']['name'])));
+
+        $extensions = array("jpeg", "jpg", "png", "pdf", "txt");
+
+        if (in_array($file_ext, $extensions) === false) {
+            $errors[] = "extension not allowed, please choose a JPEG or PNG file.";
+        }
+
+        if ($file_size > 2097152) {
+            $errors[] = 'File size must be excately 2 MB';
+        }
+
+        if (empty($errors) == true) {
+            move_uploaded_file($file_tmp, "../files/" . $file_name);
+            echo "Success";
+        } else {
+            print_r($errors);
+        }
+    }
+
+
     //getting the post values
     $theme = $_POST['theme'];
     $titre = $_POST['titre'];
     $auteur = $_POST['auteur'];
     $resume = $_POST['resume'];
     $mots_cles = $_POST['mots_cles'];
-    //$fichier = $_POST['fichier'];
+    $fichier = $file_name;
 
 
     // Query for data insertion
-    $query = mysqli_query($conn, "insert into documents (theme,titre, auteurs, resume, mots_cles) 
-    value('$theme','$titre', '$auteur', '$resume', '$mots_cles' )");
+    $query = mysqli_query($conn, "insert into documents (nom_theme,titre, auteurs, resume, mots_cles, fichier) 
+    value('$theme','$titre', '$auteur', '$resume', '$mots_cles', '$fichier' )");
     if ($query) {
         echo "<script>alert('You have successfully inserted the data');</script>";
         echo "<script type='text/javascript'> document.location ='liste_doc.php'; </script>";
@@ -21,6 +50,7 @@ if (isset($_POST['submit'])) {
         echo "<script>alert('Something Went Wrong. Please try again');</script>";
     }
 }
+
 ?>
 
 <html lang="en">
@@ -63,6 +93,15 @@ if (isset($_POST['submit'])) {
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
 
         textarea {
             height: 200px;
@@ -128,7 +167,6 @@ if (isset($_POST['submit'])) {
     </style>
 
 
-
     <head>
         <title> Banque de Documentation</title>
 
@@ -137,13 +175,17 @@ if (isset($_POST['submit'])) {
 
 
 <body>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
 
         <div>
             <label>Theme :</label>
-
-            <input type="text" id="search_query" name="theme" placeholder="Theme.">
-
+            <select name="theme" required>
+            <option value="Developpement Web">Developpement Web</option>
+            <option value="Politique">Politique</option>
+            <option value="Science">Science</option>
+            <option value="Litterature">Litterature</option>
+            <option value="Philosophie">Philosophie</option>
+           </select>
         </div>
         <div>
             <label>Titre :</label>
@@ -151,11 +193,11 @@ if (isset($_POST['submit'])) {
         </div>
         <div>
             <label>Auteur(s): </label>
-            <input type="text" name="auteur" required>
+            <input type="text" name="auteur">
         </div>
         <div>
             <label>Résumé :</label>
-            <textarea name="resume" rows="6" required></textarea>
+            <textarea name="resume" rows="6"></textarea>
         </div>
         <div>
             <label>Mots clés :</label>
@@ -163,7 +205,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div>
             <label>Fichier :</label>
-            <input type="text" name="fichier">
+            <input type="file" name="files" />
             <div>
                 <input type="submit" name="submit" value="Ajouter le Document">
             </div>

@@ -2,17 +2,47 @@
 //Database Connection
 include('../connexion/connexion.php');
 if (isset($_POST['submit'])) {
+
+        // upload file
+        if (isset($_FILES['files'])) {
+                $errors = array();
+                $file_name = $_FILES['files']['name'];
+                $file_size = $_FILES['files']['size'];
+                $file_tmp = $_FILES['files']['tmp_name'];
+                $file_type = $_FILES['files']['type'];
+                $file_ext = strtolower(end(explode('.', $_FILES['files']['name'])));
+
+                $extensions = array("jpeg", "jpg", "png", "pdf", "txt");
+
+                if (in_array($file_ext, $extensions) === false) {
+                        $errors[] = "extension not allowed, please choose a JPEG or PNG file.";
+                }
+
+                if ($file_size > 2097152) {
+                        $errors[] = 'File size must be excately 2 MB';
+                }
+
+                if (empty($errors) == true) {
+                        move_uploaded_file($file_tmp, "../files/" . $file_name);
+                        echo "Success";
+                } else {
+                        print_r($errors);
+                }
+        }
+
+        // mise à jour
         $eid = $_GET['editid'];
         //Getting Post Values
-        $theme = $_POST['theme'];
+        $nom_theme = $_POST['theme'];
         $titre = $_POST['titre'];
         $auteurs = $_POST['auteurs'];
         $resume = $_POST['resume'];
         $mots_cles = $_POST['mots_cles'];
+        $fichier = $file_name;
 
         //Query for data updation
-        $query = mysqli_query($conn, "update  documents set theme='$theme',titre='$titre', 
-     auteurs='$auteurs', resume='$resume', mots_cles='$mots_cles' where ID='$eid'");
+        $query = mysqli_query($conn, "update  documents set nom_theme='$nom_theme',titre='$titre', 
+     auteurs='$auteurs', resume='$resume', mots_cles='$mots_cles', fichier='$fichier' where ID='$eid'");
 
         if ($query) {
                 echo "<script>alert('You have successfully update the data');</script>";
@@ -30,7 +60,7 @@ if (isset($_POST['submit'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <header>
-                <h1>Banque de Documentation</h1>
+                <h1>Modification</h1>
         </header>
         <style>
                 form {
@@ -126,18 +156,11 @@ if (isset($_POST['submit'])) {
                         text-decoration: underline;
                 }
         </style>
-
-
-
-        <head>
-                <title> Banque de Documentation</title>
-
-        </head>
 </head>
 
 
 <body>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
                 <?php
                 //appel du fichier de connexion
                 require_once('../connexion/connexion.php');
@@ -146,29 +169,42 @@ if (isset($_POST['submit'])) {
                 while ($row = mysqli_fetch_array($ret)) {
 
                 ?>
-
-                        <h2>Modification </h2>
-                        <p class="hint-text">Veuillez modifier votre document</p>
                         <div>
-                                <div class="row">
-                                        <div class="col"><input type="text" placeholder="Theme" name="theme" value="<?php echo $row['theme']; ?>"></div>
-                                </div>
+                                <label>Theme :</label>
+                                <select name="theme" required>
+                                        <option value="Developpement Web">Developpement Web</option>
+                                        <option value="Politique">Politique</option>
+                                        <option value="Science">Science</option>
+                                        <option value="Litterature">Litterature</option>
+                                        <option value="Philosophie">Philosophie</option>
+                                </select>
+
                         </div>
 
                         <div>
+                                <label>Titre :</label>
                                 <input type="text" placeholder="Titre" name="titre" value="<?php echo $row['titre']; ?>" required="true">
                         </div>
 
                         <div>
+                                <label>Auteur (s) :</label>
                                 <input type="text" placeholder="Auteur" name="auteurs" value="<?php echo $row['auteurs']; ?>" required="true">
                         </div>
 
                         <div>
+                                <label>Résumé :</label>
                                 <textarea name="resume" required="true"><?php echo $row['resume']; ?></textarea>
                         </div>
 
                         <div>
+                                <label> Mots clés :</label>
                                 <input type="text" name="mots_cles" value="<?php echo $row['mots_cles']; ?>" required="true">
+
+                        </div>
+                        <div>
+                                <label> Fichier :</label>
+                                <input type="file" name="files" />
+                                <!-- <input type="text" name="mots_cles" value="<?php echo $row['mots_cles']; ?>" required="true"> -->
 
                         </div>
                 <?php

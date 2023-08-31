@@ -21,6 +21,7 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
         <div>
         <a href="../index.php" class="header-button">Accueil</a> 
         <a href="ajout_doc.php" class="header-button">Ajouter</a> 
+        
     </div>
     </header>
 </head>
@@ -47,12 +48,12 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
                 extract($part);
                 echo "<tr>
 
-                <td>$theme</td>
+                <td>$nom_theme</td>
                 <td>$titre</td>
                 <td>$auteurs</td>
                 <td>$resume</td>
                 <td>$mots_cles</td>
-                <td></td>
+                <td>$fichier</td>
                 <td>
                 <a href='edit_doc.php?editid=$id'>Editer</a>
                 <a href='supprim_doc.php?delid=$id'
