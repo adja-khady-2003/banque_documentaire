@@ -12,18 +12,18 @@ if (isset($_POST['submit'])) {
                 $file_type = $_FILES['files']['type'];
                 $file_ext = strtolower(end(explode('.', $_FILES['files']['name'])));
 
-                $extensions = array("jpeg", "jpg", "png", "pdf", "txt");
+                $extensions = array("pdf", "txt", "docx");
 
                 if (in_array($file_ext, $extensions) === false) {
                         $errors[] = "extension not allowed, please choose a JPEG or PNG file.";
                 }
 
-                if ($file_size > 2097152) {
+                if ($file_size > 8097152) {
                         $errors[] = 'File size must be excately 2 MB';
                 }
 
                 if (empty($errors) == true) {
-                        move_uploaded_file($file_tmp, "../files/" . $file_name);
+                        move_uploaded_file($file_tmp, "../../files/" . $file_name);
                         echo "Success";
                 } else {
                         print_r($errors);
@@ -51,6 +51,11 @@ if (isset($_POST['submit'])) {
                 echo "<script>alert('Something Went Wrong. Please try again');</script>";
         }
 }
+
+//liste theme
+$sql_part_theme = "select * from theme";
+//execution
+$query_part_theme = mysqli_query($conn, $sql_part_theme) or die(mysqli_error($conn));
 ?>
 
 <html lang="en">
@@ -169,16 +174,23 @@ if (isset($_POST['submit'])) {
                 while ($row = mysqli_fetch_array($ret)) {
 
                 ?>
+
                         <div>
                                 <label>Theme :</label>
-                                <select name="theme" required>
-                                        <option value="Developpement Web">Developpement Web</option>
-                                        <option value="Politique">Politique</option>
-                                        <option value="Science">Science</option>
-                                        <option value="Litterature">Litterature</option>
-                                        <option value="Philosophie">Philosophie</option>
+                                <select name='theme' value=<?php echo $row['nom_theme']; ?> required>
+                                        <option value='none' selected disabled hidden>--- Selectionner un theme ---</option>
+                                        <?php
+                                        while ($part = mysqli_fetch_array($query_part_theme)) {
+                                                //tant qu'on extrait des lignes sous forme de table  executif
+                                                extract($part);
+                                                if ($nom_theme == $row['nom_theme']) {
+                                                        echo "<option value='$nom_theme' selected>$nom_theme</option>";
+                                                } else {
+                                                        echo "<option value='$nom_theme'>$nom_theme</option>";
+                                                }
+                                        }
+                                        ?>
                                 </select>
-
                         </div>
 
                         <div>

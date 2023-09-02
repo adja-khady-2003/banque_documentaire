@@ -18,12 +18,12 @@ if (isset($_POST['submit'])) {
             $errors[] = "extension not allowed, please choose a JPEG or PNG file.";
         }
 
-        if ($file_size > 2097152) {
+        if ($file_size > 8097152) {
             $errors[] = 'File size must be excately 2 MB';
         }
 
         if (empty($errors) == true) {
-            move_uploaded_file($file_tmp, "../files/" . $file_name);
+            move_uploaded_file($file_tmp, "../../files/" . $file_name);
             echo "Success";
         } else {
             print_r($errors);
@@ -182,22 +182,21 @@ $query_part_theme = mysqli_query($conn, $sql_part_theme) or die(mysqli_error($co
 <body>
     <form method="POST" enctype="multipart/form-data">
 
-        <?php
+        <div>
+            <label>Theme :</label>
+            <select name='theme' required>
+                <option value='none' selected disabled hidden>--- Selectionner un theme ---</option>
+                <?php
+                while ($part = mysqli_fetch_array($query_part_theme)) {
+                    //tant qu'on extrait des lignes sous forme de table  executif
+                    extract($part);
+                    echo "<option value='$nom_theme'>$nom_theme</option>";
+                }
+                ?>
+            </select>
+        </div>
 
-            echo "
-            <div>
-                <label>Theme :</label>
-                <select name='theme' required> ";
-            echo "<option>--- Selectionner un theme ---</option>";
-        while ($part = mysqli_fetch_array($query_part_theme)) {
-            //tant qu'on extrait des lignes sous forme de table  executif
-            extract($part);
-            echo "<option value='$nom_theme'>$nom_theme</option>";
-        }
-            echo "</select>
-                 </div>";
 
-        ?>
 
 
         <div>
