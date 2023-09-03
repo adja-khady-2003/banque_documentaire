@@ -18,7 +18,7 @@
 <div style="padding-left:16px" class="w3-center">
   <h2>Bienvenue dans la page d'administration</h2>
   <p>Paramétrage..</p>
-  <img src="../images/admin2.jpg" style="width:90%" class="w3-image">
+  <img src="../images/admin5.jpg" style="width:90%" class="w3-image">
 </div>
 
 </body>
