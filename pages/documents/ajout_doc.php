@@ -65,7 +65,7 @@ $query_part_theme = mysqli_query($conn, $sql_part_theme) or die(mysqli_error($co
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <header>
-        <h1>Banque de Documentation</h1>
+        <h1>Formulaire ajout document</h1>
     </header>
     <style>
         form {

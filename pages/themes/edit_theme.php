@@ -3,7 +3,7 @@
 include('../../connexion/connexion.php');
 if (isset($_POST['submit'])) {
 
-       
+
 
         // mise à jour
         $eid = $_GET['editid'];
@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
 
         <header>
                 <h1>Modification Theme</h1>
@@ -139,18 +139,18 @@ if (isset($_POST['submit'])) {
                 while ($row = mysqli_fetch_array($ret)) {
 
                 ?>
-                 <div>
+                        <div>
                                 <label> Theme :</label>
-                                <input type="text" name="nom_theme" <?php echo $row['nom_theme']; ?> required="true">
+                                <input type="text" name="nom_theme" value="<?php echo $row['nom_theme']; ?>" required="true">
 
-                        </div>               
+                        </div>
 
                 <?php
                 } ?>
                 <div>
-                <input type="submit" name="submit" value="Modifier">
+                        <input type="submit" name="submit" value="Modifier">
                 </div>
-                        
+
         </form>
 
 </body>

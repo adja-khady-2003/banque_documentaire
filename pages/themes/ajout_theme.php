@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <header>
-        <h1>Ajouter un theme</h1>
+        <h1>Formulaire ajout theme</h1>
     </header>
     <style>
         form {
