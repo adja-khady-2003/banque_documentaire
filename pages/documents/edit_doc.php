@@ -178,7 +178,7 @@ $query_part_theme = mysqli_query($conn, $sql_part_theme) or die(mysqli_error($co
                         <div>
                                 <label>Theme :</label>
                                 <select name='theme' value=<?php echo $row['nom_theme']; ?> required>
-                                        <option value='none' selected disabled>--- Selectionner un theme ---</option>
+                                        <option value='' selected disabled>--- Selectionner un thème ---</option>
                                         <?php
                                         while ($part = mysqli_fetch_array($query_part_theme)) {
                                                 //tant qu'on extrait des lignes sous forme de table  executif
@@ -215,8 +215,7 @@ $query_part_theme = mysqli_query($conn, $sql_part_theme) or die(mysqli_error($co
                         </div>
                         <div>
                                 <label> Fichier :</label>
-                                <input type="file" name="files" />
-                                <!-- <input type="text" name="mots_cles" value="<?php echo $row['mots_cles']; ?>" required="true"> -->
+                                <input type="file" name="files" value="<?php echo $row['fichier']; ?>"/>
 
                         </div>
                 <?php
