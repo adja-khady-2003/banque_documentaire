@@ -7,6 +7,26 @@ $sql_part = "select * from documents";
 //execution
 $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
 
+// recherche suivant les critères définis
+if (isset($_POST['search_query']) && isset($_POST['search_mode']) && $_POST['search_mode'] == 'theme') {
+  $query = $_POST['search_query'];
+  $sql_part = "select * from documents where nom_theme like '%$query%'";
+  $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
+
+  echo "<script type='text/javascript'> document.location ='index.php#tour'; </script>";
+} else if (isset($_POST['search_query']) && isset($_POST['search_mode']) && $_POST['search_mode'] == 'auteur') {
+  $query = $_POST['search_query'];
+  $sql_part = "select * from documents where auteurs like '%$query%'";
+  $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
+
+  echo "<script type='text/javascript'> document.location ='index.php#tour'; </script>";
+} else if (isset($_POST['search_query']) && isset($_POST['search_mode']) && $_POST['search_mode'] == 'mot_cle') {
+  $query = $_POST['search_query'];
+  $sql_part = "select * from documents where mots_cles like '%$query%'";
+  $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
+
+  echo "<script type='text/javascript'> document.location ='index.php#tour'; </script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +39,8 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
   <link rel="stylesheet" href="./styles/w3.css">
   <link rel="stylesheet" href="./styles/lato.css">
   <link rel="stylesheet" href="./styles/fontawesome.css">
+  <link rel="stylesheet" href="./styles/search.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     body {
       font-family: "Lato", sans-serif
@@ -27,6 +49,47 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
     .mySlides {
       display: none
     }
+
+
+    .search-container {
+      width: 300px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+
+    select,
+    input[type="text"],
+    button {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 3px;
+      color: #333;
+      background-color: #fff;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #search-results {
+      margin-top: 20px;
+    }
+
+    /* // */
   </style>
 </head>
 
@@ -91,36 +154,55 @@ $query_part = mysqli_query($conn, $sql_part) or die(mysqli_error($conn));
       <h2 class="w3-wide">BANQUE DOCUMENTAIRE</h2>
       <p class="w3-opacity"><i>à savoir</i></p>
       <p class="w3-justify"> Cette base de documents recueille des descriptions de livres de tout genre.
-      Une banque documentaire comporte une base de données et un logiciel, assurant la création de nouvelles données,
-       la mise à jour des informations déjà existantes et la possibilité d'interrogation.
-       Ainsi,la base de données est concrètement le programme informatique qui est donc "le contenant". 
-       La banque de données est le "contenu" de la base et dans une base de données il peut y avoir plusieurs banques.
+        Une banque documentaire comporte une base de données et un logiciel, assurant la création de nouvelles données,
+        la mise à jour des informations déjà existantes et la possibilité d'interrogation.
+        Ainsi,la base de données est concrètement le programme informatique qui est donc "le contenant".
+        La banque de données est le "contenu" de la base et dans une base de données il peut y avoir plusieurs banques.
       </p>
     </div>
 
+
+
     <!-- The Tour Section -->
     <div class="w3-black" id="tour">
-      <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+
+      <!-- bloc de recherche -->
+      <div class="w3-container w3-content w3-padding-30" style="padding-top: 10px;">
+        <form action="" method="POST">
+          <div class="w3-row">
+            <!-- <label for="search_mode">Mode de Recherche :</label> -->
+
+            <div class="w3-col l4" style="padding-right: 20px;">
+              <select id="search_mode" name="search_mode" required>
+                <option value="" selected disabled> <b>Veuillez choisir un mode de recherche</b></option>
+                <option value="theme">Par Thème</option>
+                <option value="auteur">Par Auteur</option>
+                <option value="mot_cle">Par Mots Clés</option>
+              </select>
+            </div>
+
+            <div class="w3-col l6">
+              <input type="text" class="w3-input w3-ripple" required name="search_query" placeholder="Recherche...">
+            </div>
+
+            <div class="w3-col l2">
+              <button type="submit" class='w3-button w3-ripple w3-blue w3-margin-bottom'>
+                Voir
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+
+      <!-- liste documents publiés -->
+      <div class="w3-container w3-content w3-padding-30" style="max-width:800px">
         <h2 class="w3-wide w3-center">PUBLICATION</h2>
         <p class="w3-opacity w3-center"><i>articles publiés!</i></p><br>
 
-        <!-- <ul class="w3-ul w3-border w3-white w3-text-grey">
-        <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-        <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-        <li class="w3-padding">November <span class="w3-badge w3-right w3-margin-right">3</span></li>
-      </ul> -->
-
         <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
-          <!-- <div class="w3-third w3-margin-bottom">
-            <img src="/w3images/newyork.jpg" alt="New York" style="width:100%" class="w3-hover-opacity">
-            <div class="w3-container w3-white">
-              <p><b>New York</b></p>
-              <p class="w3-opacity">Fri 27 Nov 2016</p>
-              <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-              <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
-            </div>
-          </div> -->
-
           <?php
           while ($part = mysqli_fetch_array($query_part)) {
             //tant qu'on extrait des lignes sous forme de table  executif
